@@ -1,0 +1,28 @@
+Exp1.1.1: {Input: pert-hw-img} → VLM → Error: Yes/No (Comparison against GT)
+Exp1.1.2: {input: pert-hw-img} →  VLM → CoT Reasoning behind why something is erroneous + Error: Yes/No
+Exp1.1.3: {input: pert-hw-img} →  VLM → Generate OCR internally + CoT Reasoning behind why something is erroneous based on the OCR + Error: Yes/No
+
+Exp1.2.1: {Input: pert-hw-img} → VLM → Generate OCR text (LaTeX) →  Same VLM / LLM (as baseline) → Error: Yes/No [Still evaluating VLMs]
+Exp1.2.2: {Input: pert-hw-img} → VLM → Generate OCR text (LaTeX) →  Same VLM / LLM (as baseline) → CoT Reasoning behind why something is erroneous + Error: Yes/No
+
+
+Exp2.1: {Input: pert-hw-img} → VLM → {Output: CoT + Pinpoint Operator/Notational/Expression/Multistep Error in LaTeX}, {Input: Pinpoint Error in LaTeX, Perturbation Reason, Perturbed LaTeX} → Best LLM Evaluator → Match: Correct/Incorrect 
+Exp2.2: {Input: pert-hw-img} → VLM → Generate OCR → VLM → CoT + {Output: Pinpoint Operator/Notational/Expression/Multistep Error in LaTeX}, {Input: Pinpoint Error in LaTeX, Perturbation Reason, Perturbed LaTeX} → Best LLM Evaluator → Match: Correct/Incorrect 
+
+
+Exp3.1: {Input: pert-hw-img} → VLM → CoT + {Output: Corrected LaTeX}, {Input: Corrected LaTeX, Original LaTeX} → Best LLM Evaluator → Match: Correct/Incorrect
+Exp3.2: {Input: pert-hw-img} → VLM → Generate OCR → VLM → CoT + {Output: Corrected LaTeX}, {Input: Corrected LaTeX, Original LaTeX} → Best LLM Evaluator → Match: Correct/Incorrect
+
+
+_____________________________________
+Steps
+-------------------------------------
+
+1. Prompt VLM for error detection. Input: Image, Output: Boolean
+2. Prompt VLM for error detection with CoT. Input: Image, Output: Boolean and Reasoning
+3. Prompt VLM for error detection with CoT and OCR. Input: Image, Output: Boolean, Reasoning and OCR.
+
+4. Prompt VLM for OCR. Input: Image, Output: OCR
+5. Prompt VLM for Error detection based on OCR. Input: OCR, Output: Boolean
+6. Pormpt VLM for Error detection with CoT based on OCR. Input: OCR, Output: Boolean, Reasoning
+
