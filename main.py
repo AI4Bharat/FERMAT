@@ -5,13 +5,18 @@ import pandas as pd
 from utils import get_model_path, get_csv
 
 class Pipeline:
+    
     def __init__(self):
         self.steps: List[BaseStep] = []
 
     def add_step(self, step: BaseStep) -> None:
         self.steps.append(step)
 
-    def get_step(self, step_id: str) -> BaseStep:
+    def get_step(self, step_id: str = None) -> BaseStep:
+        
+        if step_id is None:
+            return self.steps[0]
+        
         for step in self.steps:
             if step.get_id() == step_id:
                 return step
@@ -26,7 +31,7 @@ class Pipeline:
 def load_images(url: str) -> List[str]:
     csv = pd.read_csv(url)
 
-    img_names = csv["annotation_url"]
+    img_names = csv[:1]["annotation_url"]
 
     return list(map(lambda x: x.split("/")[-1], img_names))
 

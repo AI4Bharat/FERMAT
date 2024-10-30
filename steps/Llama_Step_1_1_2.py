@@ -1,5 +1,8 @@
-from Step_1_1_2 import Step_1_1_2, client
+from steps import Step_1_1_2
 from typing import Any
+
+
+from client import client
 
 class Llama_Step_1_1_2(Step_1_1_2):
 

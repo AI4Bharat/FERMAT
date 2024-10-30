@@ -9,15 +9,7 @@ from typing import Union, Dict
 import yaml
 import re
 
-from openai import OpenAI
-
-openai_api_key = "EMPTY"
-openai_api_base = "http://localhost:8001/v1"
-
-client = OpenAI(
-    api_key=openai_api_key,
-    base_url=openai_api_base,
-)
+from client import client
 
 @Step("1.1.1")
 class Step_1_1_1(VLMStep):
@@ -32,7 +24,7 @@ class Step_1_1_1(VLMStep):
         self.model_path = model_path
 
         # Load the config.yaml file
-        with open("../config.yaml", "r") as file:
+        with open("config.yaml", "r") as file:
             self.config = yaml.safe_load(file)
             self.user_prompt = self.config["experiments"][self.experiment_id]["user_prompt"]
             self.system_prompt = self.config["experiments"][self.experiment_id]["system_prompt"]
@@ -63,7 +55,7 @@ class Step_1_1_1(VLMStep):
         )
         return(chat_response.choices[0].message.content)
         
-    def parse_output(self, output: str) -> int|None:
+    def parse_output(self, output: str) -> Union[int, None]:
         # Remove Leading and Trailing Whistespaces
         
         output = output.strip()

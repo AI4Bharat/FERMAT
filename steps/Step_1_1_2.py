@@ -10,13 +10,7 @@ import re
 
 from openai import OpenAI
 
-openai_api_key = "EMPTY"
-openai_api_base = "http://localhost:8001/v1"
-
-client = OpenAI(
-    api_key=openai_api_key,
-    base_url=openai_api_base,
-)
+from client import client
 
 @Step("1.1.2")
 class Step_1_1_2(VLMStep):
@@ -59,7 +53,7 @@ class Step_1_1_2(VLMStep):
         )
         return(chat_response.choices[0].message.content)
     
-    def parse_output(self, output: str) -> Dict|None:
+    def parse_output(self, output: str) -> Union[Dict, None]:
         # Remove Leading and Trailing Whistespaces
 
         text = output.strip()

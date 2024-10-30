@@ -48,8 +48,8 @@ class VLMStep(BaseStep):
             self.update_state(image = img_name, result = output)
     
 
-    def encode_image(self, image : str) -> str:
-        with open(f"images/{image}", 'rb') as img_file:
+    def encode_image(self, image: str) -> str:
+        with open(f"../images/{image}", 'rb') as img_file:
             return base64.b64encode(img_file.read()).decode('utf-8')
         
     def update_state(self, image: str, result: Union[str]) -> None:

@@ -1,4 +1,4 @@
-csv: test.csv
+csv: ../test.csv
 
 models:
   pixtral: mistralai/Pixtral-12B-2409
