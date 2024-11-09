@@ -17,7 +17,7 @@ class Step:
                 self._step._state[key] = value
 
             def get_state(self, key: str) -> Any:
-                return self._step._state.get(key)
+                return self._step._state.get(key, None)
 
             def has_state(self, key: str) -> bool:
                 return key in self._step._state

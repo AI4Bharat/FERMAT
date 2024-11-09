@@ -1,30 +1,24 @@
 from base import VLMStep
 from step_decorator import Step
 
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from tqdm import tqdm
-
 from typing import Union, Dict
 
 import yaml
-import re
 
-from utils import get_config_file
+import re
 
 from client import client
 
+from utils import get_config_file
 
-@Step("1.1.1")
-class Step_1_1_1(VLMStep):
-
+@Step("3.1")
+class Step_3_1(VLMStep):
+    
     max_tokens = 1024
     temperature = 0
 
-
     def __init__(self, model_path: str):
-
         self.experiment_id = self.get_id()
-        
         self.model_path = model_path
 
         config_file = get_config_file()
@@ -35,10 +29,10 @@ class Step_1_1_1(VLMStep):
             self.user_prompt = self.config["experiments"][self.experiment_id]["user_prompt"]
             self.system_prompt = self.config["experiments"][self.experiment_id]["system_prompt"]
 
-    
     def hit(self, image_url):
         image = self.encode_image(image_url)
 
+        ## Add Question and Answer in the prompt
 
         chat_response = client.chat.completions.create(
             model=self.model_path,
@@ -60,18 +54,30 @@ class Step_1_1_1(VLMStep):
             }]
         )
         return(chat_response.choices[0].message.content)
-        
-    def parse_output(self, output: str) -> Union[int, None]:
-        # Remove Leading and Trailing Whistespaces
-        
-        output = output.strip()
+    
+    def parse_output(self, output: str) -> Union[Dict, None]:
+        text = output.strip()
 
-        match = re.search(r'\d+', output)
-
-        if match:
-            output = match.group(0)
-        else:
-            raise ValueError("No number found in the output")
+        # Pattern for reasoning
+        reasoning_pattern = r'\*\*Reasoning:\*\*\s*(.*?)\s*\*\*Corrected Answer LaTeX:'
         
-        return output
+        # Pattern for corrected answer LaTeX
+        corrected_answer_latex_pattern = r'\*\*Corrected Answer LaTeX:\*\*\s*(.*)$'  # Capture until end of string
 
+        # Extract reasoning
+        reasoning_match = re.search(reasoning_pattern, text, re.DOTALL)
+        if not reasoning_match:
+            raise ValueError("Could not find Reasoning section")
+        reasoning = reasoning_match.group(1).strip()
+
+        # Extract corrected answer in LaTeX
+        corrected_answer_latex_match = re.search(corrected_answer_latex_pattern, text, re.DOTALL)
+        if not corrected_answer_latex_match:
+            raise ValueError("Could not find Corrected Answer LaTeX section")
+        corrected_answer_latex = corrected_answer_latex_match.group(1).strip()
+
+        return {
+            "reasoning": reasoning,
+            "corrected_answer_latex": corrected_answer_latex,
+            "output": output
+        }

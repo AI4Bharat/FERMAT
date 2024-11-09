@@ -1,8 +1,10 @@
 from typing import List
 from base import BaseStep
 import pandas as pd
-
+import json
 from utils import get_model_path, get_csv
+
+model = "pixtral"
 
 class Pipeline:
     
@@ -26,21 +28,35 @@ class Pipeline:
             print(f"Executing step: {step.get_id()}")
             step.execute()
             print(f"Completed step: {step.get_id()}")
-
+            with open(f"state_{model}_{step.get_id()}.json", "w") as file:
+                json.dump(step.output_state(), file, indent=4)
+            
 
 def load_images(url: str) -> List[str]:
-    csv = pd.read_csv(url)
+    image_urls = []
+    import os
+    dir_name = '../pqa_images_grayscale'
+    for root, dirs, files in os.walk(dir_name):
+        for file in files:
+            if file.endswith('.png'):
+                image_urls.append(file)
 
-    img_names = csv[:1]["annotation_url"]
+    return image_urls  
 
-    return list(map(lambda x: x.split("/")[-1], img_names))
+# def load_images(url: str) -> List[str]:
+#     csv = pd.read_csv(url)
 
-from steps import Llama_Step_1_1_1, Llama_Step_1_1_2, Step_1_1_1, Step_1_1_2, OutputState
+#     img_names = csv["annotation_url"]
+
+#     return list(map(lambda x: x.split("/")[-1], img_names))
+
+from steps import Llama_Step_1_1_1, Llama_Step_1_1_2, Step_1_1_1, Step_1_1_2, OutputState, Step_1_2_1, Step_1_2_2, Step_2_1, Step_2_2, Step_3_1, Step_3_2, Step_OCR, Pixtral_Step_1_2_1, Pixtral_Step_1_2_2, Pixtral_Step_2_2, Pixtral_Step_3_2
 
 def get_steps(model: str):
     models = {
         "llama": [Llama_Step_1_1_1, Llama_Step_1_1_2],
-        "default": [Step_1_1_1, Step_1_1_2]
+        "pixtral": [Step_1_1_1, Step_1_1_2, Step_OCR, Pixtral_Step_1_2_1, Pixtral_Step_1_2_2, Step_2_1, Pixtral_Step_2_2, Step_3_1, Pixtral_Step_3_2],
+        "default": [Step_1_1_1, Step_1_1_2, Step_OCR, Step_1_2_1, Step_1_2_2, Step_2_1, Step_2_2, Step_3_1, Step_3_2]
     }
     
     return models.get(model, models["default"])
@@ -48,9 +64,6 @@ def get_steps(model: str):
 
 
 if __name__ == "__main__":
-
-    model = "llama"
-
     model_path = get_model_path(model)
     url = get_csv()
 
@@ -61,7 +74,7 @@ if __name__ == "__main__":
     for step in steps:
         pipeline.add_step(step(model_path = model_path))
 
-    pipeline.add_step(OutputState(model=model))
+    # pipeline.add_step(OutputState(model=model))
 
     pipeline.get_step().set_state("images", load_images(url))
     pipeline.get_step().set_state("not_parsed", [])

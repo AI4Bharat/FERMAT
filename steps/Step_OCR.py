@@ -1,30 +1,24 @@
 from base import VLMStep
 from step_decorator import Step
 
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from tqdm import tqdm
-
 from typing import Union, Dict
 
 import yaml
-import re
 
-from utils import get_config_file
+import re
 
 from client import client
 
+from utils import get_config_file
 
-@Step("1.1.1")
-class Step_1_1_1(VLMStep):
-
+@Step("ocr")
+class Step_OCR(VLMStep):
+    
     max_tokens = 1024
     temperature = 0
 
-
     def __init__(self, model_path: str):
-
         self.experiment_id = self.get_id()
-        
         self.model_path = model_path
 
         config_file = get_config_file()
@@ -35,7 +29,6 @@ class Step_1_1_1(VLMStep):
             self.user_prompt = self.config["experiments"][self.experiment_id]["user_prompt"]
             self.system_prompt = self.config["experiments"][self.experiment_id]["system_prompt"]
 
-    
     def hit(self, image_url):
         image = self.encode_image(image_url)
 
@@ -60,18 +53,31 @@ class Step_1_1_1(VLMStep):
             }]
         )
         return(chat_response.choices[0].message.content)
-        
-    def parse_output(self, output: str) -> Union[int, None]:
-        # Remove Leading and Trailing Whistespaces
-        
-        output = output.strip()
+    
+    def parse_output(self, output: str) -> Union[Dict, None]:
+        # Remove leading and trailing whitespaces
+        text = output.strip()
 
-        match = re.search(r'\d+', output)
+        # Pattern for question: Match everything between "**Question:**" and "**Answer:**"
+        question_pattern = r'\*\*Question:\*\*\s*(.*?)\s*\*\*Answer:'
 
-        if match:
-            output = match.group(0)
-        else:
-            raise ValueError("No number found in the output")
-        
-        return output
+        # Pattern for answer: Match everything after "**Answer:**"
+        answer_pattern = r'\*\*Answer:\*\*\s*(.*)$'
 
+        # Extract question
+        question_match = re.search(question_pattern, text, re.DOTALL)
+        if not question_match:
+            raise ValueError("Could not find Question Section")
+        question = question_match.group(1).strip()
+
+        # Extract answer
+        answer_match = re.search(answer_pattern, text, re.DOTALL)
+        if not answer_match:
+            raise ValueError("Could not find Answer Section")
+        answer = answer_match.group(1).strip()
+
+        return {
+            "question": question,
+            "answer": answer,
+            "output": output
+        }
