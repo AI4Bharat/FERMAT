@@ -1,3 +1,6 @@
+import re
+import unicodedata
+
 def replace_unicode(text, replace_with=" "):
     # This regex identifies Unicode characters outside the ASCII range.
     unicode_chars = re.compile(r'[^\x00-\x7F]+')

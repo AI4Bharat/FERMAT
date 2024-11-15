@@ -55,6 +55,7 @@ class Step_OCR(VLMStep):
         return(chat_response.choices[0].message.content)
     
     def parse_output(self, output: str) -> Union[Dict, None]:
+
         # Remove leading and trailing whitespaces
         text = output.strip()
 

@@ -17,7 +17,7 @@ class VLMStep(BaseStep):
     def hit(self, image_url: str) -> Any:
             raise NotImplementedError("Subclasses must implement hit method")
     
-    def parse_output(self, image_url: str) -> Union[int, Dict, None]:
+    def parse_output(self, output: str) -> Union[Dict, None]:
         raise NotImplementedError("Subclasses must implement parse_output method")
     
     def execute(self):
@@ -97,7 +97,7 @@ class VLMStep(BaseStep):
         
         except Exception as e:
             
-            # print(f"Error while updating the state of the image: {e}")
+            print(f"Error while updating the state of the image: {e}")
 
             not_parsed = self.get_state("not_parsed")
 

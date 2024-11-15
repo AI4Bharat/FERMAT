@@ -10,7 +10,7 @@ experiments:
   "1.1.1":
     system_prompt: "You are a math assistant responsible for evaluating handwritten math problems at the middle or high school level. Your task is to analyze the given Image, which contains the handwritten math Question-Answer pair, and determine whether the solution contains any errors. Follow the specific instructions provided carefully and output your response strictly in the requested format. Ensure that your evaluation is precise, accurate, and based solely on the information visible in the Image."
     user_prompt:
-      "'The image provided contains a handwritten problem consisting of both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer to determine whether there is any error. If the problem is multiple-choice (MCQ), judge the presence or absence of error based only on the explanation given in the Answer, not the option selected by the student.
+      "'The image provided contains a handwritten math problem consisting of both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer to determine whether there is any error. If the problem is multiple-choice (MCQ), judge the presence or absence of error based only on the explanation given in the Answer, not the option selected by the student.
 
 
 
@@ -28,7 +28,7 @@ experiments:
   "1.1.2":
     system_prompt: "You are a math assistant responsible for evaluating handwritten math problems at the middle or high school level. Your task is to analyze the given Image, which contains the handwritten math Question-Answer pair, and determine whether the solution contains any errors. Follow the specific instructions provided carefully and output your response strictly in the requested format. Ensure that your evaluation is precise, accurate, and based solely on the information visible in the Image."
     user_prompt:
-      "'The image provided contains a handwritten problem consisting of both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer to determine whether there is any error. Begin by providing a detailed, step-by-step reasoning for your analysis, explaining where and why you believe an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), judge the presence or absence of error based only on the explanation given in the Answer, not the option selected by the student.
+      "'The image provided contains a handwritten math problem consisting of both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer to determine whether there is any error. Begin by providing a brief reasoning for your analysis, explaining where and why you believe an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), judge the presence or absence of error based only on the explanation given in the Answer, not the option selected by the student.
 
       After the reasoning, provide a binary output indicating whether an error exists (1 for error, 0 for no error).
 
@@ -38,13 +38,13 @@ experiments:
 
 
 
-      **Reasoning:** <Step-by-Step Explanation of Error Presence or Absence>
+      **Reasoning:** <Brief Explanation of Error Presence or Absence>
 
       **Error:** <0 or 1>'"
 
   "ocr":
     system_prompt: "You are a math assistant specializing in extracting mathematical question and answer content from handwritten images of math problems by middle or high school students. Your task is to analyze the given Image, which contains the handwritten math Question-Answer pair, and convert it into LaTeX format. Follow the specific instructions provided carefully and output your response strictly in the requested format. Ensure that your evaluation is precise, accurate, and based solely on the information visible in the image."
-    user_prompt: 'The image provided contains a handwritten problem with both a Question and an Answer at a middle or high school level. Your task is to explicitly perform OCR on the handwritten text and extract the content in LaTeX format. Do not include any additional text such as "Question" or "Answer" labels present in the image. Return only the extracted content exactly as it appears in the image, formatted in LaTeX.
+    user_prompt: 'The image provided contains a handwritten math problem with both a Question and an Answer at a middle or high school level. Your task is to explicitly perform OCR on the handwritten text and extract the content in LaTeX format. Return only the extracted content, formatted in LaTeX, exactly as it appears in the image, in the **Question:** and **Answer:** fields.
 
                         Ensure that no extra information is added that is not in the image.
 
@@ -64,67 +64,67 @@ experiments:
   
   "1.2.2":
     system_prompt: "You are a math assistant responsible for evaluating math problems at the middle or high school level. Your task is to analyze the input text which has been extracted from an image containing a handwritten math Question-Answer pair and determine whether the Answer contains any errors. Your evaluation should be based solely on the provided text and the accuracy of the solution. Ensure that your analysis is detailed, precise, and follows the specific instructions provided. Output your response in the exact format requested, and make sure to focus on both the correctness of the solution and the logical steps presented in the Answer."
-    user_prompt: "The following text contains a math problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer to determine whether there is any error. Begin by providing a detailed, step-by-step reasoning for your analysis, explaining where and why you believe an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), judge the presence or absence of error based only on the explanation given in the Answer, not the option selected by the student. 
+    user_prompt: "The following text contains a math problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer to determine whether there is any error. Begin by providing a brief reasoning for your analysis, explaining where and why you believe an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), judge the presence or absence of error based only on the explanation given in the Answer, not the option selected by the student. 
 
                 After the reasoning, provide a binary output indicating whether an error exists (1 for error, 0 for no error). 
 
                 Please follow the exact format below without adding any extra information:
 
-                **Reasoning:** <Step-by-Step Explanation of Error Presence or Absence>  
+                **Reasoning:** <Brief Explanation of Error Presence or Absence>  
 
                 **Error:** <0 or 1>"
     
   "2.1":
     system_prompt: "You are a math assistant responsible for evaluating handwritten math problems at the middle or high school level. Your task is to analyze the given Image, which contains the handwritten math Question-Answer pair, and determine whether the solution contains any errors. Follow the specific instructions provided carefully and output your response strictly in the requested format. Ensure that your evaluation is precise, accurate, and based solely on the information visible in the image."
 
-    user_prompt: "The image provided contains a handwritten problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer, identify any errors, and if present, localize the errors in the **Error Localization:** field below. 
+    user_prompt: "The image provided contains a handwritten math problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer, identify any errors, and if present, localize the errors in the **Error Localization:** field below. 
                       
-                      Begin by providing a detailed, step-by-step reasoning for your analysis, explaining where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation in the Answer and not the option selected by the student when identifying errors.
+                      Begin by providing a brief reasoning for your analysis, explaining where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation in the Answer and not the option selected by the student when identifying errors.
 
                       After the reasoning, based on your analysis, localize the exact lines or steps in the Answer where the error occurs, in the **Error Localization** field. If no error is present, mention 'NA' in the **Error Localization:** field.
 
                       Please follow the exact format below without adding any extra information:
 
-                      **Reasoning:** <Step-by-Step Explanation of Error Presence or Absence>  
+                      **Reasoning:** <Brief Explanation of Error Presence or Absence>  
                       **Error Localization:** <Specific lines or steps in the Answer where the error occurs, or 'NA' if no error>"
     
   "2.2":
     system_prompt: "You are a math assistant responsible for evaluating math problems at the middle or high school level. Your task is to analyze the input text which has been extracted from an image containing a handwritten math Question-Answer pair and determine whether the Answer contains any errors. Your evaluation should be based solely on the provided text and the accuracy of the solution. Ensure that your analysis is detailed, precise, and follows the specific instructions provided. Output your response in the exact format requested, and make sure to focus on both the correctness of the solution and the logical steps presented in the Answer."
     user_prompt: "The following text contains a math problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer, identify any errors, and if present, localize the errors in the **Error Localization:** field below. 
               
-              Begin by providing a detailed, step-by-step reasoning for your analysis, explaining where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation in the Answer and not the option selected by the student when identifying errors.
+              Begin by providing a brief reasoning for your analysis, explaining where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation in the Answer and not the option selected by the student when identifying errors.
 
               After the reasoning, based on your analysis, localize the exact lines or steps in the Answer where the error occurs in the **Error Localization** field. If no error is present, mention 'NA' for **Error Localization:** field.
 
               Please follow the exact format below without adding any extra information:
 
-              **Reasoning:** <Step-by-Step Explanation of Error Presence or Absence>   
+              **Reasoning:** <Brief Explanation of Error Presence or Absence>   
 
               **Error Localization:** <Specific lines or steps in the Answer where the error occurs, or 'NA' if no error>"
   "3.1":
     system_prompt: "You are a math assistant responsible for evaluating handwritten math problems at the middle or high school level. Your task is to analyze the provided image, which contains a handwritten math Question-Answer pair, and determine whether the solution contains any errors. If an error is present, you are expected to correct the Answer based on the question's requirements. Ensure that your analysis is precise, accurate, and based solely on the information visible in the image. Follow the specific instructions provided, and output your response strictly in the requested format."
-    user_prompt: "The image provided contains a handwritten problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer, identify any errors, and if present, correct the errors in the Answer and return it in the **Corrected Answer LaTeX:** field below. 
+    user_prompt: "The image provided contains a handwritten math problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer, identify any errors, and if present, correct the errors in the Answer and return it in the **Corrected Answer LaTeX:** field below. 
                       
-                      Begin by providing a detailed, step-by-step explanation of where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation provided in the Answer rather than the option selected by the student when identifying errors.
+                      Begin by providing a brief explanation of where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation provided in the Answer rather than the option selected by the student when identifying errors.
 
-                      Next, based on your analysis, give the correct Answer in LaTeX format and ensure that the LaTeX Answer is meaningful, logical, and aligns with the instructions in the Question. If the problem is multiple-choice (MCQ), return the full LaTeX Answer with the complete corrected explanation retained as visible in the image, along with the correct option that should have selected. If no error is present in the Answer, mark 'NA' in the **Corrected Answer LaTeX:** field.
+                      Next, based on your analysis, give the correct Answer in LaTeX format and ensure that the LaTeX Answer is meaningful, logical, and aligns with the instructions in the Question. If the problem is multiple-choice (MCQ), return the full LaTeX Answer with the complete corrected explanation retained as visible in the image, along with the correct option that should have been selected. If no error is present in the Answer, mark 'NA' in the **Corrected Answer LaTeX:** field.
 
                       Please follow the exact format below without adding any extra information:
 
-                      **Reasoning:** <Step-by-Step Explanation of Error Presence or Absence> 
+                      **Reasoning:** <Brief Explanation of Error Presence or Absence> 
                       **Corrected Answer LaTeX:** <Complete Corrected LaTeX Answer, or 'NA' if no error>"
     
   "3.2":
     system_prompt: "You are a math assistant responsible for evaluating math problems at the middle or high school level. Your task is to analyze the input text which has been extracted from an image containing a handwritten math Question-Answer pair, and determine whether the solution contains any errors. If an error is present, you are expected to correct the Answer based on the question's requirements. Ensure that your analysis is precise, accurate, and based solely on the information visible in the image. Follow the specific instructions provided, and output your response strictly in the requested format."
     user_prompt: "The following text contains a math problem with both a Question and an Answer at a middle or high school level. Your task is to analyze the Answer, identify any errors, and if present, correct the errors in the Answer and return it in the **Corrected Answer LaTeX:** field below. 
                 
-              Begin by providing a detailed, step-by-step explanation of where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation provided in the Answer rather than the option selected by the student when identifying errors.
+              Begin by providing a brief explanation of where and why an error is present or absent in the Answer. If the problem is multiple-choice (MCQ), focus on the explanation provided in the Answer rather than the option selected by the student when identifying errors.
 
               Next, based on your analysis, give the correct Answer in LaTeX format and ensure that the LaTeX Answer is meaningful, logical, and aligns with the instructions in the Question. If the problem is multiple-choice (MCQ), return the full LaTeX Answer with the complete corrected explanation retained as visible in the image, along with the correct option that should have selected. If no error is present in the Answer, mark 'NA' in the **Corrected Answer LaTeX:** field.
 
               Please follow the exact format below without adding any extra information:
 
-              **Reasoning:** <Step-by-Step Explanation of Error Presence or Absence>  
+              **Reasoning:** <Brief Explanation of Error Presence or Absence>  
               
               **Corrected Answer LaTeX:** <Corrected LaTeX Answer, or 'NA' if no error>"
         

@@ -4,7 +4,7 @@ import pandas as pd
 import json
 from utils import get_model_path, get_csv
 
-model = "pixtral"
+model = "llama"
 
 class Pipeline:
     
@@ -28,7 +28,7 @@ class Pipeline:
             print(f"Executing step: {step.get_id()}")
             step.execute()
             print(f"Completed step: {step.get_id()}")
-            with open(f"state_{model}_{step.get_id()}.json", "w") as file:
+            with open(f"state_{model}_pqa_{step.get_id()}.json", "w") as file:
                 json.dump(step.output_state(), file, indent=4)
             
 
@@ -41,7 +41,7 @@ def load_images(url: str) -> List[str]:
             if file.endswith('.png'):
                 image_urls.append(file)
 
-    return image_urls  
+    return image_urls
 
 # def load_images(url: str) -> List[str]:
 #     csv = pd.read_csv(url)
@@ -50,12 +50,13 @@ def load_images(url: str) -> List[str]:
 
 #     return list(map(lambda x: x.split("/")[-1], img_names))
 
-from steps import Llama_Step_1_1_1, Llama_Step_1_1_2, Step_1_1_1, Step_1_1_2, OutputState, Step_1_2_1, Step_1_2_2, Step_2_1, Step_2_2, Step_3_1, Step_3_2, Step_OCR, Pixtral_Step_1_2_1, Pixtral_Step_1_2_2, Pixtral_Step_2_2, Pixtral_Step_3_2
+from steps import Pixtral_Step_OCR, Llama_Step_1_1_1, Llama_Step_1_1_2, Step_1_1_1, Step_1_1_2, OutputState, Step_1_2_1, Step_1_2_2, Step_2_1, Step_2_2, Step_3_1, Step_3_2, Step_OCR, Pixtral_Step_1_2_1, Pixtral_Step_1_2_2, Pixtral_Step_2_2, Pixtral_Step_3_2, Llama_Step_1_2_2, Llama_Step_1_2_1, Llama_Step_2_1, Llama_Step_2_2, Llama_Step_3_1, Llama_Step_3_2, Llama_Step_OCR
+import json
 
 def get_steps(model: str):
     models = {
-        "llama": [Llama_Step_1_1_1, Llama_Step_1_1_2],
-        "pixtral": [Step_1_1_1, Step_1_1_2, Step_OCR, Pixtral_Step_1_2_1, Pixtral_Step_1_2_2, Step_2_1, Pixtral_Step_2_2, Step_3_1, Pixtral_Step_3_2],
+        "llama": [Llama_Step_1_1_1, Llama_Step_1_1_2, Llama_Step_OCR, Llama_Step_1_2_1, Llama_Step_1_2_2, Llama_Step_2_1, Llama_Step_2_2, Llama_Step_3_1, Llama_Step_3_2],
+        "pixtral": [Step_1_1_1, Step_1_1_2, Pixtral_Step_OCR, Pixtral_Step_1_2_1, Pixtral_Step_1_2_2, Step_2_1, Pixtral_Step_2_2, Step_3_1, Pixtral_Step_3_2],
         "default": [Step_1_1_1, Step_1_1_2, Step_OCR, Step_1_2_1, Step_1_2_2, Step_2_1, Step_2_2, Step_3_1, Step_3_2]
     }
     
@@ -78,5 +79,10 @@ if __name__ == "__main__":
 
     pipeline.get_step().set_state("images", load_images(url))
     pipeline.get_step().set_state("not_parsed", [])
-    
+
+    # with open('../llama.json') as f:
+    #     data = json.load(f)
+    #     data["images"] = data["images"][:5]
+    #     pipeline.get_step().put_state(data)
+
     pipeline.run()

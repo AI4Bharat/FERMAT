@@ -1,10 +1,12 @@
 from typing import Any, Dict
-
+import json
 class Step:
+
     _state = {}
 
     def __init__(self, id: str):
         self.id = id
+    
 
     def __call__(self, original_class: type) -> type:
         class Wrapper(original_class):
@@ -25,5 +27,9 @@ class Step:
             ## Output State
             def output_state(self) -> Dict[str, Any]:
                 return self._step._state
+            
+            def put_state(self, state: Dict[str, Any]) -> None:
+                self._step._state = state
+
 
         return Wrapper
