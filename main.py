@@ -4,7 +4,7 @@ import pandas as pd
 import json
 from utils import get_model_path, get_csv
 
-model = "llama"
+model = "pixtral_large"
 
 class Pipeline:
     
@@ -28,14 +28,14 @@ class Pipeline:
             print(f"Executing step: {step.get_id()}")
             step.execute()
             print(f"Completed step: {step.get_id()}")
-            with open(f"state_{model}_pqa_{step.get_id()}.json", "w") as file:
+            with open(f"state_{model}_{step.get_id()}.json", "w") as file:
                 json.dump(step.output_state(), file, indent=4)
             
 
 def load_images(url: str) -> List[str]:
     image_urls = []
     import os
-    dir_name = '../pqa_images_grayscale'
+    dir_name = '../benchmark_images'
     for root, dirs, files in os.walk(dir_name):
         for file in files:
             if file.endswith('.png'):
@@ -57,6 +57,7 @@ def get_steps(model: str):
     models = {
         "llama": [Llama_Step_1_1_1, Llama_Step_1_1_2, Llama_Step_OCR, Llama_Step_1_2_1, Llama_Step_1_2_2, Llama_Step_2_1, Llama_Step_2_2, Llama_Step_3_1, Llama_Step_3_2],
         "pixtral": [Step_1_1_1, Step_1_1_2, Pixtral_Step_OCR, Pixtral_Step_1_2_1, Pixtral_Step_1_2_2, Step_2_1, Pixtral_Step_2_2, Step_3_1, Pixtral_Step_3_2],
+        "pixtral_large": [Step_1_1_2],
         "default": [Step_1_1_1, Step_1_1_2, Step_OCR, Step_1_2_1, Step_1_2_2, Step_2_1, Step_2_2, Step_3_1, Step_3_2]
     }
     
