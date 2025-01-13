@@ -5,7 +5,7 @@
 We present FERMAT, a benchmark designed to assess VLMs’ ability to detect, localize and correct errors in handwritten mathematical content. Please refer to our [paper]() for more details.
 
 <p align="center" width="100%">
-      <img src="FERMAT.jpg" alt="We present FERMAT, a benchmark designed to assess VLMs’ ability to detect, localize and correct errors in handwritten mathematical content." style="width: 75%; min-width: 200px; display: block; margin: auto;">
+      <img src="FERMAT.png" alt="We present FERMAT, a benchmark designed to assess VLMs’ ability to detect, localize and correct errors in handwritten mathematical content." style="width: 75%; min-width: 200px; display: block; margin: auto;">
 </p>
 
 ## VLMs
