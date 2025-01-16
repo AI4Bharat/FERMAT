@@ -1,6 +1,6 @@
-# Title: Subtitle
+# FERMAT: Can Vision-Language Models Evaluate Handwritten Math?
 
-[📜 Paper](https://arxiv.org/abs/2406.13439) | [🤗 HF Dataset](https://huggingface.co/datasets/ai4bharat/fermat)
+[📜 Paper](https://arxiv.org/abs/2501.07244) | [🤗 HF Dataset](https://huggingface.co/datasets/ai4bharat/fermat)
 
 We present FERMAT, a benchmark designed to assess VLMs’ ability to detect, localize and correct errors in handwritten mathematical content. Please refer to our [paper]() for more details.
 
@@ -77,10 +77,13 @@ For self-hosted models,
 If you used this repository or our models, please cite our work:
 
 ```bibtex
-@article{nath2024finding,
-  title   = {Finding Blind Spots in Evaluator LLMs with Interpretable Checklists},
-  author  = {Oikantik Nath and Hanani Bathina and Mohammed Safi Ur Rahman Khan and Mitesh M. Khapra},
-  year    = {2024},
-  journal = {arXiv preprint arXiv: 2406.13439}
+@misc{nath2025visionlanguagemodelsevaluatehandwritten,
+      title={Can Vision-Language Models Evaluate Handwritten Math?},
+      author={Oikantik Nath and Hanani Bathina and Mohammed Safi Ur Rahman Khan and Mitesh M. Khapra},
+      year={2025},
+      eprint={2501.07244},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2501.07244},
 }
 ```
