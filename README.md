@@ -77,13 +77,10 @@ For self-hosted models,
 If you used this repository or our models, please cite our work:
 
 ```bibtex
-@misc{nath2025visionlanguagemodelsevaluatehandwritten,
-      title={Can Vision-Language Models Evaluate Handwritten Math?},
-      author={Oikantik Nath and Hanani Bathina and Mohammed Safi Ur Rahman Khan and Mitesh M. Khapra},
-      year={2025},
-      eprint={2501.07244},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2501.07244},
+@article{nath2025vision1language,
+  title   = {Can Vision-Language Models Evaluate Handwritten Math?},
+  author  = {Oikantik Nath and Hanani Bathina and Mohammed Safi Ur Rahman Khan and Mitesh M. Khapra},
+  year    = {2025},
+  journal = {arXiv preprint arXiv: 2501.07244}
 }
 ```
