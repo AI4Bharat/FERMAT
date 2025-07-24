@@ -8,14 +8,6 @@ We present FERMAT, a benchmark designed to assess VLMs’ ability to detect, loc
       <img src="FERMAT.png" alt="We present FERMAT, a benchmark designed to assess VLMs’ ability to detect, localize and correct errors in handwritten mathematical content." style="width: 75%; min-width: 200px; display: block; margin: auto;">
 </p>
 
-## VLMs
-
-- [ ] Gemini Family
-- [ ] GPT Family
-- [x] Pixtral Family
-- [x] Llama Family
-- [x] Phi3.5V
-
 ## Loading Data
 
 Steps to download data and store the images in benchmark_images, and csv in benchmark_csv.
