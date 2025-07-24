@@ -56,14 +56,6 @@ For self-hosted models,
    - CSV_FILE: Path to the CSV file where the results need to be filled in.
    - JSON_FILE: Path to the JSON file where the results are stored.
 
-## Evaluation
-
-### Error Detection
-
-### Error Localization
-
-### Error Correction
-
 ## Citation
 
 If you used this repository or our models, please cite our work:
